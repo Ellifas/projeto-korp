@@ -1,0 +1,12 @@
+.git
+.github
+.vscode
+.idea
+README.md
+*.md
+grafana/data
+prometheus/data
+bin
+coverage.out
+*.test
+.env

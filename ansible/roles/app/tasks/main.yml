@@ -1,0 +1,20 @@
+---
+- name: Definir diretório raiz do projeto
+  ansible.builtin.set_fact:
+    project_root: "{{ playbook_dir }}/.."
+
+- name: Build da imagem http-server-projeto-korp
+  community.docker.docker_image:
+    name: http-server-projeto-korp
+    tag: latest
+    source: build
+    build:
+      path: "{{ project_root }}"
+      dockerfile: Dockerfile
+    state: present
+
+- name: Subir containers com Docker Compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_root }}"
+    state: present
+    build: always

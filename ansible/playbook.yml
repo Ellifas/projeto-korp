@@ -1,0 +1,10 @@
+---
+- name: Provisionar ambiente do Projeto Korp
+  hosts: local
+  gather_facts: true
+
+  roles:
+    - docker
+    - network
+    - app
+    - validate

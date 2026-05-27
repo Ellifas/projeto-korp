@@ -1,0 +1,58 @@
+services:
+  http-server-projeto-korp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: http-server-projeto-korp:latest
+    container_name: http-server-projeto-korp
+    restart: unless-stopped
+    networks:
+      - korp-network
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: nginx-projeto-korp
+    restart: unless-stopped
+    depends_on:
+      - http-server-projeto-korp
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/http-server-projeto-korp.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - korp-network
+
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: prometheus-projeto-korp
+    restart: unless-stopped
+    depends_on:
+      - http-server-projeto-korp
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    networks:
+      - korp-network
+
+  grafana:
+    image: grafana/grafana:10.4.0
+    container_name: grafana-projeto-korp
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - korp-network
+
+networks:
+  korp-network:
+    external: true
+    name: korp-network

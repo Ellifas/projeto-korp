@@ -1,0 +1,16 @@
+# Go
+bin/
+*.test
+coverage.out
+
+# Env
+.env
+
+# OS/Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Grafana/Prometheus local data
+grafana/data/
+prometheus/data/

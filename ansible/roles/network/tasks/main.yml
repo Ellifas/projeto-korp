@@ -1,0 +1,7 @@
+---
+- name: Criar rede Docker bridge korp-network
+  become: yes
+  community.docker.docker_network:
+    name: korp-network
+    driver: bridge
+    state: present

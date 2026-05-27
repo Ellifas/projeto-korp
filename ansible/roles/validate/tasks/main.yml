@@ -1,0 +1,28 @@
+---
+- name: Aguardar serviço inicializar
+  ansible.builtin.pause:
+    seconds: 5
+
+- name: Validar endpoint principal do Projeto Korp
+  ansible.builtin.uri:
+    url: http://localhost:80/projeto-korp
+    method: GET
+    return_content: yes
+    status_code: 200
+  register: response
+
+- name: Exibir resposta da aplicação
+  ansible.builtin.debug:
+    msg: "{{ response.json }}"
+
+- name: Validar métrica de disponibilidade no Prometheus
+  ansible.builtin.uri:
+    url: "http://localhost:9090/api/v1/query?query=korp_service_up"
+    method: GET
+    return_content: yes
+    status_code: 200
+  register: prometheus_response
+
+- name: Exibir resposta da métrica korp_service_up
+  ansible.builtin.debug:
+    msg: "{{ prometheus_response.json.data.result }}"
