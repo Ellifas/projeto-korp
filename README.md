@@ -202,6 +202,10 @@ Painéis disponíveis:
 - Total acumulado de requisições
 - Latência p95
 
+## Screenshot do Dashboard Grafana
+
+![Dashboard Grafana](docs/images/grafana-dashboard.png)
+
 ## Comandos úteis com Makefile
 
 Executar testes:
