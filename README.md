@@ -1,6 +1,6 @@
 # Projeto Korp — HTTP Server com Go, Docker, NGINX, Prometheus, Grafana e Ansible
 
-Projeto desenvolvido para o desafio técnico da Korp, com foco em programação Go, Docker, redes, proxy reverso, observabilidade com Prometheus/Grafana e automação de ambiente Linux com Ansible.
+Projeto com foco em programação Go, Docker, redes, proxy reverso, observabilidade com Prometheus/Grafana e automação de ambiente Linux com Ansible.
 
 ## Objetivo
 
